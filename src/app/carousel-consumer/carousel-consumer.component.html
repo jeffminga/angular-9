@@ -1,4 +1,4 @@
-<app-carousel #myCarousel [inputs]="carouselConfig" [dataSource]="carouselItems">
+<app-carousel [inputs]="carouselConfig" [dataSource]="carouselItems">
     <app-carousel-item *carouselDef="let item; let j = index">
         <div class="tile">{{item.name}}</div>
     </app-carousel-item>

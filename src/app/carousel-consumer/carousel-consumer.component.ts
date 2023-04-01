@@ -1,6 +1,5 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
 import { CarouselConfig } from '../carousel/carousel/carousel';
-import { Carousel } from '../carousel/carousel/carousel.component';
 
 @Component({
   selector: 'app-carousel-consumer',
@@ -11,7 +10,6 @@ export class CarouselConsumerComponent implements AfterViewInit {
   withAnim = true;
   resetAnim = true;
 
-  @ViewChild('myCarousel') myCarousel: Carousel<any>;
   carouselConfig: CarouselConfig = {
     grid: { xs: 3, sm: 4, md:5, lg: 6, all: 0 },
     load: 3,
@@ -36,14 +34,5 @@ export class CarouselConsumerComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.cdr.detectChanges();
-  }
-
-  reset() {
-    this.myCarousel.reset(!this.resetAnim);
-  }
-
-  moveTo(slide) {
-    // console.log("move to")
-    this.myCarousel.moveTo(slide, !this.withAnim);
   }
 }
