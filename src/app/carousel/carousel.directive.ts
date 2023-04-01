@@ -5,24 +5,6 @@ import { Directive, TemplateRef, ViewContainerRef } from '@angular/core';
 })
 export class CarouselItemDirective {}
 
-@Directive({
-  selector: '[CarouselNext]'
-})
-export class CarouselNextDirective {
-  // @HostBinding('disabled') disabled: boolean;
-  // @HostBinding('style.display') display = 'block';
-  // @HostListener('click')
-  // onClick() {
-  // }
-}
-
-@Directive({
-  selector: '[CarouselPrev]'
-})
-export class CarouselPrevDirective {
-  // @HostBinding('disabled') disabled: boolean;
-  // @HostBinding('style.display') display = 'block';
-}
 
 @Directive({
   selector: '[CarouselPoint]'

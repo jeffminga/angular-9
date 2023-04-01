@@ -3,10 +3,8 @@ import { NgModule } from '@angular/core';
 import {
   CarouselDefDirective,
   CarouselItemDirective,
-  CarouselNextDirective,
   CarouselOutlet,
   CarouselPointDirective,
-  CarouselPrevDirective
 } from './carousel.directive';
 import { Carousel } from './carousel/carousel.component';
 import { CarouselItemComponent } from './carousel-item/carousel-item.component';
@@ -18,8 +16,6 @@ import { CarouselItemComponent } from './carousel-item/carousel-item.component';
     CarouselItemComponent,
     CarouselPointDirective,
     CarouselItemDirective,
-    CarouselNextDirective,
-    CarouselPrevDirective,
     CarouselDefDirective,
     CarouselOutlet
   ],
@@ -28,10 +24,8 @@ import { CarouselItemComponent } from './carousel-item/carousel-item.component';
     CarouselItemComponent,
     CarouselPointDirective,
     CarouselItemDirective,
-    CarouselNextDirective,
-    CarouselPrevDirective,
     CarouselDefDirective,
-    CarouselOutlet
+    CarouselOutlet,
   ]
 })
 

@@ -1,12 +1,11 @@
-<carousel #myCarousel [inputs]="carouselConfig" [dataSource]="carouselItems">
-    <carousel-item *carouselDef="let item; let j = index">
+<app-carousel #myCarousel [inputs]="carouselConfig" [dataSource]="carouselItems">
+    <app-carousel-item *carouselDef="let item; let j = index">
         <div class="tile">{{item.name}}</div>
-    </carousel-item>
-    <button CarouselNext class="rightRs">></button>
-	<button CarouselPrev class="leftRs"><</button>
+    </app-carousel-item>
+
     <ul class="myPoint" CarouselPoint>
         <li *ngFor="let i of myCarousel.pointNumbers; let j = index" [class.active]="i==myCarousel.activePoint" (click)="myCarousel.moveTo(i)"
           [style.background]="'url(' + carouselItems[j] + ')'"></li>
       </ul>
-</carousel>
+</app-carousel>
 

@@ -1,7 +1,7 @@
 import { Component, HostBinding } from '@angular/core';
 
 @Component({
-  selector: 'carousel-item',
+  selector: 'app-carousel-item',
   templateUrl: 'carousel-item.component.html',
   styleUrls: ['carousel-item.component.scss']
 })

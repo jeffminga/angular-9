@@ -28,7 +28,9 @@ export class CarouselStore {
     public isLast = false,
     public RTL = false,
     public point = true,
-    public velocity = 1
+    public velocity = 1,
+    public showPagination = true,
+    public showNavigation = true,
   ) {}
 }
 export type DeviceType = 'xs' | 'sm' | 'md' | 'lg' | 'all';
@@ -78,6 +80,8 @@ export class CarouselConfig {
   button?: CarouselButton;
   vertical?: Vertical;
   velocity?: number;
+  showNavigation?: boolean;
+  showPagination?: boolean;
 }
 
 export type Custom = 'banner';

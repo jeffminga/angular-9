@@ -5,7 +5,12 @@
     </div>
   </div>
   <div class="clearFix"></div>
-  <ng-content select="[CarouselPrev]"></ng-content>
-  <ng-content select="[CarouselNext]"></ng-content>
+
+
+  <ng-container *ngIf="showNavigation">
+    <button class="nav prev" (click)="prev()" [disabled]="this.isFirst" [ngClass]="{ 'disabled': this.isFirst}">Prev</button>
+    <button class="nav next" (click)="next()" [disabled]="this.isLast" [ngClass]="{ 'disabled': this.isLast}">Next</button>
+  </ng-container>
+
 </div>
 <ng-content select="[CarouselPoint]"></ng-content>

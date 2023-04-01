@@ -33,15 +33,15 @@ import { EMPTY, fromEvent, interval, merge, Observable, of, Subject, Subscriptio
 import { mapTo, startWith, switchMap, takeUntil } from 'rxjs/operators';
 import {
   CarouselDefDirective,
-  CarouselNextDirective,
   CarouselOutlet,
-  CarouselPrevDirective
 } from '../carousel.directive';
 import { CarouselConfig, CarouselOutletContext, CarouselStore } from './carousel';
 
+
+
 // @dynamic
 @Component({
-  selector: 'carousel',
+  selector: 'app-carousel',
   templateUrl: 'carousel.component.html',
   styleUrls: ['carousel.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -92,32 +92,6 @@ export class Carousel<T> extends CarouselStore
 
   @ViewChild(CarouselOutlet, { static: true })
   _nodeOutlet: CarouselOutlet;
-
-  /** The setter is used to catch the button if the button has ngIf
-   * issue id #91
-   */
-  @ContentChild(CarouselNextDirective, /* TODO: add static flag */ { read: ElementRef })
-  set nextBtn(btn: ElementRef) {
-    this.listener2 && this.listener2();
-    if (btn) {
-      this.listener2 = this._renderer.listen(btn.nativeElement, 'click', () =>
-        this._carouselScrollOne(1)
-      );
-    }
-  }
-
-  /** The setter is used to catch the button if the button has ngIf
-   * issue id #91
-   */
-  @ContentChild(CarouselPrevDirective, /* TODO: add static flag */ { read: ElementRef })
-  set prevBtn(btn: ElementRef) {
-    this.listener1 && this.listener1();
-    if (btn) {
-      this.listener1 = this._renderer.listen(btn.nativeElement, 'click', () =>
-        this._carouselScrollOne(0)
-      );
-    }
-  }
 
   @ViewChild('carousel', { read: ElementRef, static: true })
   private carouselMain1: ElementRef;
@@ -304,6 +278,10 @@ export class Carousel<T> extends CarouselStore
       this.inputs.point && typeof this.inputs.point.visible !== 'undefined'
         ? this.inputs.point.visible
         : true;
+
+
+    this.showNavigation = this.inputs.showNavigation ?? this.showNavigation;
+    this.showPagination = this.inputs.showPagination ?? this.showPagination;
 
     this._carouselSize();
   }
@@ -721,6 +699,15 @@ export class Carousel<T> extends CarouselStore
     }
     collect += `); }`;
     return collect;
+  }
+
+  public prev() {
+    console.log("go back!!");
+    this._carouselScrollOne(0);
+  }
+
+  public next() {
+    this._carouselScrollOne(1);
   }
 
   /** set the transform style to scroll the carousel  */

@@ -18,7 +18,8 @@ export class CarouselConsumerComponent implements AfterViewInit {
     interval: {timing: 4000, initialDelay: 1000},
     loop: false,
     touch: true,
-    velocity: 0.2
+    velocity: 0.2,
+    // showNavigation: false,
   }
   carouselItems = [
     { name: "one"},
