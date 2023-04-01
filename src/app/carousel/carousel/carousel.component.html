@@ -4,13 +4,14 @@
       <ng-container carouselOutlet></ng-container>
     </div>
   </div>
-  <div class="clearFix"></div>
-
 
   <ng-container *ngIf="showNavigation">
     <button class="nav prev" (click)="prev()" [disabled]="this.isFirst" [ngClass]="{ 'disabled': this.isFirst}">Prev</button>
     <button class="nav next" (click)="next()" [disabled]="this.isLast" [ngClass]="{ 'disabled': this.isLast}">Next</button>
   </ng-container>
-
 </div>
-<ng-content select="[CarouselPoint]"></ng-content>
+<ng-container *ngIf="showPagination">
+  <ul class="pagination">
+    <li *ngFor="let i of pointNumbers; let j = index" [class.active]="i==activePoint" (click)="moveTo(i)"></li>
+  </ul>
+</ng-container>

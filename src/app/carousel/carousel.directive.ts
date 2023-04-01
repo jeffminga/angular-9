@@ -5,12 +5,6 @@ import { Directive, TemplateRef, ViewContainerRef } from '@angular/core';
 })
 export class CarouselItemDirective {}
 
-
-@Directive({
-  selector: '[CarouselPoint]'
-})
-export class CarouselPointDirective {}
-
 @Directive({
   selector: '[carouselDef]'
 })

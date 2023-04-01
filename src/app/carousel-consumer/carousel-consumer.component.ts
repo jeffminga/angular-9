@@ -20,6 +20,7 @@ export class CarouselConsumerComponent implements AfterViewInit {
     touch: true,
     velocity: 0.2,
     // showNavigation: false,
+    showPagination: true,
   }
   carouselItems = [
     { name: "one"},

@@ -4,7 +4,6 @@ import {
   CarouselDefDirective,
   CarouselItemDirective,
   CarouselOutlet,
-  CarouselPointDirective,
 } from './carousel.directive';
 import { Carousel } from './carousel/carousel.component';
 import { CarouselItemComponent } from './carousel-item/carousel-item.component';
@@ -14,7 +13,6 @@ import { CarouselItemComponent } from './carousel-item/carousel-item.component';
   exports: [
     Carousel,
     CarouselItemComponent,
-    CarouselPointDirective,
     CarouselItemDirective,
     CarouselDefDirective,
     CarouselOutlet
@@ -22,7 +20,6 @@ import { CarouselItemComponent } from './carousel-item/carousel-item.component';
   declarations: [
     Carousel,
     CarouselItemComponent,
-    CarouselPointDirective,
     CarouselItemDirective,
     CarouselDefDirective,
     CarouselOutlet,
