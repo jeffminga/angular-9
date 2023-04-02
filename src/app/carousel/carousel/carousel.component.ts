@@ -61,7 +61,7 @@ export class Carousel<T> extends CarouselStore
   activePoint: number;
   isHovered = false;
 
-  @Input() private inputs: CarouselConfig;
+  @Input() private config: CarouselConfig;
   @Output() private carouselLoad = new EventEmitter();
 
   // tslint:disable-next-line:no-output-on-prefix
@@ -261,27 +261,27 @@ export class Carousel<T> extends CarouselStore
   }
 
   private _inputValidation() {
-    this.type = this.inputs.grid.all !== 0 ? 'fixed' : 'responsive';
-    this.loop = this.inputs.loop || false;
-    this.inputs.easing = this.inputs.easing || 'cubic-bezier(0, 0, 0.2, 1)';
-    this.touch.active = this.inputs.touch || false;
-    this.RTL = this.inputs.RTL ? true : false;
-    this.interval = this.inputs.interval || null;
-    this.velocity = typeof this.inputs.velocity === 'number' ? this.inputs.velocity : this.velocity;
+    this.type = this.config.grid.all !== 0 ? 'fixed' : 'responsive';
+    this.loop = this.config.loop || false;
+    this.config.easing = this.config.easing || 'cubic-bezier(0, 0, 0.2, 1)';
+    this.touch.active = this.config.touch || false;
+    this.RTL = this.config.RTL ? true : false;
+    this.interval = this.config.interval || null;
+    this.velocity = typeof this.config.velocity === 'number' ? this.config.velocity : this.velocity;
 
-    if (this.inputs.vertical && this.inputs.vertical.enabled) {
-      this.vertical.enabled = this.inputs.vertical.enabled;
-      this.vertical.height = this.inputs.vertical.height;
+    if (this.config.vertical && this.config.vertical.enabled) {
+      this.vertical.enabled = this.config.vertical.enabled;
+      this.vertical.height = this.config.vertical.height;
     }
     this.directionSym = this.RTL ? '' : '-';
     this.point =
-      this.inputs.point && typeof this.inputs.point.visible !== 'undefined'
-        ? this.inputs.point.visible
+      this.config.point && typeof this.config.point.visible !== 'undefined'
+        ? this.config.point.visible
         : true;
 
 
-    this.showNavigation = this.inputs.showNavigation ?? this.showNavigation;
-    this.showPagination = this.inputs.showPagination ?? this.showPagination;
+    this.showNavigation = this.config.showNavigation ?? this.showNavigation;
+    this.showPagination = this.config.showPagination ?? this.showPagination;
 
     this._carouselSize();
   }
@@ -312,7 +312,7 @@ export class Carousel<T> extends CarouselStore
 
   /** Get Touch input */
   private _touch(): void {
-    if (this.inputs.touch) {
+    if (this.config.touch) {
       
         const hammertime = new Hammer(this.touchContainer.nativeElement);
         hammertime.get('pan').set({ direction: Hammer.DIRECTION_HORIZONTAL });
@@ -439,17 +439,17 @@ export class Carousel<T> extends CarouselStore
               ? 'sm'
               : 'xs';
 
-      this.items = this.inputs.grid[this.deviceType];
+      this.items = this.config.grid[this.deviceType];
       this.itemWidth = this.carouselWidth / this.items;
     } else {
-      this.items = Math.trunc(this.carouselWidth / this.inputs.grid.all);
-      this.itemWidth = this.inputs.grid.all;
+      this.items = Math.trunc(this.carouselWidth / this.config.grid.all);
+      this.itemWidth = this.config.grid.all;
       this.deviceType = 'all';
     }
 
-    this.slideItems = +(this.inputs.slide < this.items ? this.inputs.slide : this.items);
-    this.load = this.inputs.load >= this.slideItems ? this.inputs.load : this.slideItems;
-    this.speed = this.inputs.speed && this.inputs.speed > -1 ? this.inputs.speed : 400;
+    this.slideItems = +(this.config.slide < this.items ? this.config.slide : this.items);
+    this.load = this.config.load >= this.slideItems ? this.config.load : this.slideItems;
+    this.speed = this.config.speed && this.config.speed > -1 ? this.config.speed : 400;
     this._carouselPoint();
   }
 
@@ -467,7 +467,7 @@ export class Carousel<T> extends CarouselStore
     this.pointIndex = Math.ceil(Nos / this.slideItems);
     const pointers = [];
 
-    if (this.pointIndex > 1 || !this.inputs.point.hideOnSingleSlide) {
+    if (this.pointIndex > 1 || !this.config.point.hideOnSingleSlide) {
       for (let i = 0; i < this.pointIndex; i++) {
         pointers.push(i);
       }
@@ -524,24 +524,24 @@ export class Carousel<T> extends CarouselStore
     let dism = '';
     this.styleid = `.${this.token} > .carousel > .touch-container > .carousel-items`;
 
-    if (this.inputs.custom === 'banner') {
+    if (this.config.custom === 'banner') {
       this._renderer.addClass(this.carousel, 'banner');
     }
 
-    if (this.inputs.animation === 'lazy') {
+    if (this.config.animation === 'lazy') {
       dism += `${this.styleid} > .item {transition: transform .6s ease;}`;
     }
 
     let itemStyle = '';
     if (this.vertical.enabled) {
       const itemWidthXS = `${this.styleid} > .item {height: ${this.vertical.height /
-        +this.inputs.grid.xs}px}`;
+        +this.config.grid.xs}px}`;
       const itemWidthSM = `${this.styleid} > .item {height: ${this.vertical.height /
-        +this.inputs.grid.sm}px}`;
+        +this.config.grid.sm}px}`;
       const itemWidthMD = `${this.styleid} > .item {height: ${this.vertical.height /
-        +this.inputs.grid.md}px}`;
+        +this.config.grid.md}px}`;
       const itemWidthLG = `${this.styleid} > .item {height: ${this.vertical.height /
-        +this.inputs.grid.lg}px}`;
+        +this.config.grid.lg}px}`;
 
       itemStyle = `@media (max-width:767px){${itemWidthXS}}
                     @media (min-width:768px){${itemWidthSM}}
@@ -549,25 +549,25 @@ export class Carousel<T> extends CarouselStore
                     @media (min-width:1200px){${itemWidthLG}}`;
     } else if (this.type === 'responsive') {
       const itemWidthXS =
-        this.inputs.type === 'mobile'
-          ? `${this.styleid} .item {flex: 0 0 ${95 / +this.inputs.grid.xs}%; width: ${95 /
-          +this.inputs.grid.xs}%;}`
-          : `${this.styleid} .item {flex: 0 0 ${100 / +this.inputs.grid.xs}%; width: ${100 /
-          +this.inputs.grid.xs}%;}`;
+        this.config.type === 'mobile'
+          ? `${this.styleid} .item {flex: 0 0 ${95 / +this.config.grid.xs}%; width: ${95 /
+          +this.config.grid.xs}%;}`
+          : `${this.styleid} .item {flex: 0 0 ${100 / +this.config.grid.xs}%; width: ${100 /
+          +this.config.grid.xs}%;}`;
 
       const itemWidthSM = `${this.styleid} > .item {flex: 0 0 ${100 /
-        +this.inputs.grid.sm}%; width: ${100 / +this.inputs.grid.sm}%}`;
+        +this.config.grid.sm}%; width: ${100 / +this.config.grid.sm}%}`;
       const itemWidthMD = `${this.styleid} > .item {flex: 0 0 ${100 /
-        +this.inputs.grid.md}%; width: ${100 / +this.inputs.grid.md}%}`;
+        +this.config.grid.md}%; width: ${100 / +this.config.grid.md}%}`;
       const itemWidthLG = `${this.styleid} > .item {flex: 0 0 ${100 /
-        +this.inputs.grid.lg}%; width: ${100 / +this.inputs.grid.lg}%}`;
+        +this.config.grid.lg}%; width: ${100 / +this.config.grid.lg}%}`;
 
       itemStyle = `@media (max-width:767px){${itemWidthXS}}
                     @media (min-width:768px){${itemWidthSM}}
                     @media (min-width:992px){${itemWidthMD}}
                     @media (min-width:1200px){${itemWidthLG}}`;
     } else {
-      itemStyle = `${this.styleid} .item {flex: 0 0 ${this.inputs.grid.all}px; width: ${this.inputs.grid.all}px;}`;
+      itemStyle = `${this.styleid} .item {flex: 0 0 ${this.config.grid.all}px; width: ${this.config.grid.all}px;}`;
     }
 
     this._renderer.addClass(this.carousel, this.token);
@@ -657,9 +657,9 @@ export class Carousel<T> extends CarouselStore
       this._setStyle(
         this.itemsContainer.nativeElement,
         'transition',
-        `transform ${itemSpeed}ms ${this.inputs.easing}`
+        `transform ${itemSpeed}ms ${this.config.easing}`
       );
-      this.inputs.animation &&
+      this.config.animation &&
         this._carouselAnimator(
           Btn,
           currentSlide + 1,
@@ -691,10 +691,10 @@ export class Carousel<T> extends CarouselStore
     collect += `${this.styleid} { transform: translate3d(`;
 
     if (this.vertical.enabled) {
-      this.transform[grid] = (this.vertical.height / this.inputs.grid[grid]) * slide;
+      this.transform[grid] = (this.vertical.height / this.config.grid[grid]) * slide;
       collect += `0, -${this.transform[grid]}px, 0`;
     } else {
-      this.transform[grid] = (100 / this.inputs.grid[grid]) * slide;
+      this.transform[grid] = (100 / this.config.grid[grid]) * slide;
       collect += `${this.directionSym}${this.transform[grid]}%, 0, 0`;
     }
     collect += `); }`;
@@ -719,7 +719,7 @@ export class Carousel<T> extends CarouselStore
       @media (min-width: 992px) {${this._transformString('md', slide)} }
       @media (min-width: 1200px) {${this._transformString('lg', slide)} }`;
     } else {
-      this.transform.all = this.inputs.grid.all * slide;
+      this.transform.all = this.config.grid.all * slide;
       slideCss = `${this.styleid} { transform: translate3d(${this.directionSym}${this.transform.all}px, 0, 0);`;
     }
     this.carouselCssNode.innerHTML = slideCss;
@@ -727,7 +727,7 @@ export class Carousel<T> extends CarouselStore
 
   /** this will trigger the carousel to load the items */
   private _carouselLoadTrigger(): void {
-    if (typeof this.inputs.load === 'number') {
+    if (typeof this.config.load === 'number') {
       this.dataSource.length - this.load <= this.currentSlide + this.items &&
         this.carouselLoad.emit(this.currentSlide);
     }
@@ -761,7 +761,7 @@ export class Carousel<T> extends CarouselStore
       const touchPlay$ = fromEvent(container, 'touchstart').pipe(mapTo(1));
       const touchPause$ = fromEvent(container, 'touchend').pipe(mapTo(0));
 
-      const interval$ = interval(this.inputs.interval.timing).pipe(mapTo(1));
+      const interval$ = interval(this.config.interval.timing).pipe(mapTo(1));
 
       setTimeout(() => {
         this.carouselInt = merge(play$, touchPlay$, pause$, touchPause$, this._intervalController$)
