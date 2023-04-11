@@ -6,9 +6,11 @@ import { AppComponent } from './app.component';
 // import { CarouselComponent } from './carousel-bak/carousel.component';
 import { ServiceInputComponent } from './service-input/service-input.component';
 import { ServiceOutputComponent } from './service-output/service-output.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CarouselModule } from './carousel/carousel.module';
 import { CarouselConsumerComponent } from './carousel-consumer/carousel-consumer.component';
+import { InputsComponent } from './inputs/inputs.component';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -17,12 +19,15 @@ import { CarouselConsumerComponent } from './carousel-consumer/carousel-consumer
     ServiceInputComponent,
     ServiceOutputComponent,
     CarouselConsumerComponent,
+    InputsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     CarouselModule,
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

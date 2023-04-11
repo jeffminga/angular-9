@@ -18,18 +18,18 @@ const animals: Animal[] = [
 })
 export class InputService {
 
-  public animals$ = new BehaviorSubject<Animal[]>(animals);
+  private _animals = new BehaviorSubject<Animal[]>(animals);
 
   constructor() { }
 
   getAnimals() {
-    return this.animals$;
+    return this._animals.asObservable();
   }
 
   addAnimal(val: string) {
-    const current = this.animals$.getValue();
+    const current = this._animals.getValue();
     
-    this.animals$.next([{
+    this._animals.next([{
       id: current.length + 1,
       type: val,
       country: "us",

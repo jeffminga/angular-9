@@ -1,0 +1,29 @@
+<h3>Working with inputs as observables</h3>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <div class="wrap">
+        <div>
+            <label>Type</label>
+            <select [formControl]="form.controls.type">
+                <option value="todos">Todos</option>
+                <option value="posts">Posts</option>
+                <option value="photos">Photos</option>    
+            </select>
+        </div>
+        <div>
+            <input type="search" [formControl]="form.controls.search" placeholder="Search" />
+        </div>
+    </div>
+</form>
+
+<div>
+    Results - ( {{ form.controls.type.value }})
+    <ul>
+        <li *ngFor="let item of (results$ | async)">
+            {{ item.title }}
+
+            <img *ngIf="item?.url" [src]="item.url" [style]="'width: 100px; height: 100px;'"/>
+        </li>
+    </ul>
+</div>

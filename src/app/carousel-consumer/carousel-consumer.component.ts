@@ -11,7 +11,7 @@ export class CarouselConsumerComponent implements AfterViewInit {
   resetAnim = true;
 
   carouselConfig: CarouselConfig = {
-    grid: { xs: 3, sm: 4, md:5, lg: 6, all: 0 },
+    grid: { xs: 1, sm: 1, md:2, lg: 3, all: 0 },
     load: 3,
     interval: {timing: 4000, initialDelay: 1000},
     loop: false,
@@ -24,10 +24,10 @@ export class CarouselConsumerComponent implements AfterViewInit {
     { name: "one"},
     { name: "two"},
     { name: "three"},
-    { name: "four"},
-    { name: "five"},
-    { name: "six"},
-    { name: "seven"},
+    // { name: "four"},
+    // { name: "five"},
+    // { name: "six"},
+    // { name: "seven"},
   ];
 
   constructor(private cdr: ChangeDetectorRef) {}
